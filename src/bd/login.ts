@@ -1,26 +1,25 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import initialize from '../../firebase.js'
+import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import initialize from '../../firebase.ts'
 
 initialize();
 
-export function login(email, password) {
+export function login(email: string, password: string): Promise<UserCredential> {
     const auth = getAuth();
     
     return new Promise((resolve, reject) => {
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then((userCredential: UserCredential) => {
           const user = userCredential.user;
           console.log(user);
-          resolve(user); // Resolve a promise com o objeto do usuário após o login bem-sucedido
+          resolve(userCredential); // Resolve a promise com o objeto do usuário após o login bem-sucedido
         })
-        .catch((error) => {
+        .catch((error: any) => {
           reject(error); // Rejeita a promise com o erro em caso de falha no login
         });
     });
-  }
+}
 
-
-function getErrorMessage(error) {
+export function getErrorMessage(error: any): string {
     switch (error.code) {
         case "auth/user-not-found":
             return "Usuário não encontrado";

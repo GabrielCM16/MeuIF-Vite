@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import imagemGIF from './assets/logogif.gif';
 import logoGoogle from './assets/google-logo.svg';
-import { login } from './bd/login.js';
-import { loginWithGoogle } from './bd/loginGoogle.js';
+import { login } from './bd/login.ts';
+import { loginWithGoogle } from './bd/loginGoogle.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
