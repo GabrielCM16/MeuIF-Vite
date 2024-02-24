@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -11,5 +10,6 @@ const firebaseConfig = {
   measurementId: "G-T5FK1MCC4B"
 };
 
-
-export const app = initializeApp(firebaseConfig);
+export default function initialize(){
+  const app = initializeApp(firebaseConfig);
+}

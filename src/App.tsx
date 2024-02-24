@@ -1,10 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import imagemGIF from './assets/logogif.gif';
+import logoGoogle from './assets/google-logo.svg';
+import { login } from './bd/login.js';
+import { loginWithGoogle } from './bd/loginGoogle.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // Estado para controlar o carregamento
+
+  const handleLogin = () => {
+    setLoading(true); // Define o estado de carregamento como verdadeiro ao iniciar o processo de login
+    login(email, password)
+      .then(() => {
+        // Lógica após o login ser bem-sucedido
+        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+      })
+      .catch((error) => {
+        // Lógica para lidar com erros de login
+        alert(error);
+        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+      })
+      .finally(() => {
+        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+      });
+  };
+
+  const handleLoginWithGoogle = () => {
+    loginWithGoogle()
+      .then((result) => {
+        // Lógica após o login bem-sucedido com o Google
+        console.log('Login bem-sucedido com o Google:', result);
+      })
+      .catch((error) => {
+        // Lógica para lidar com erros de login com o Google
+        console.error('Erro ao fazer login com o Google:', error);
+      });
+  };
+
+
+
   return (
     <div className="background-container">
       <div className="mx-5 p-0 px-0 rounded-2 col-sm-12 col-md-6">
@@ -18,33 +58,38 @@ function App() {
 
           <div className="form-group first">
             <label htmlFor="username">Email</label>
-            <input type="text" className="form-control transparent-input" placeholder="seu@email.com" id="email" />
+            <input type="text" className="form-control transparent-input" placeholder="seu@email.com" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <div id="avisoEmail" style={{ display: 'none', color: 'red' }}>Email inválido</div>
           </div>
 
           <div className="form-group last mb-3">
             <label htmlFor="password">Senha</label>
-            <input type="password" className="form-control transparent-input" placeholder="senha" id="password" />
+            <input type="password" className="form-control transparent-input" placeholder="senha" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <div id="avisoPassword" style={{ display: 'none', color: 'red' }}>Senha inválida</div>
           </div>
 
-          <div className="d-flex mb-5 align-items-center">
-            <label className="control control--checkbox mb-0"><span className="caption">Lembre-me</span>
+          <div className="d-flex mb-5 align-items-center justify-content-between">
+            <label className="control control--checkbox mb-0">
+              <span className="caption">Lembre-me</span>
               <input type="checkbox" defaultChecked />
               <div className="control__indicator"></div>
             </label>
-            <span className="ml-auto"><a href="#" className="forgot-pass">Esqueci minha senha</a></span>
+            <span><a href="#" className="forgot-pass">Esqueci minha senha</a></span>
           </div>
 
-          <input type="button" value="Entrar" className="btn btn-block btn-primary" />
 
+          <button type="button" className="btn btn-block btn-primary" onClick={handleLogin} disabled={loading}>
+            {loading && <FontAwesomeIcon icon={faSpinner} spin className="mr-2" />}
+            {loading ? 'Carregando...' : 'Entrar'}
+          </button>
           <span className="d-block text-center my-4 text-muted">&mdash; ou &mdash;</span>
 
           <div className="social-login">
 
-          <a href="#" className="google btn d-flex justify-content-center align-items-center">
-            <i className="material-icons mr-3">account_circle</i> Continuar com Google
+          <a href="#" className="google btn d-flex justify-content-center align-items-center" onClick={handleLoginWithGoogle}>
+            <img src={logoGoogle} alt="Google Icon" className="mr-3" /> Continuar com Google
           </a>
+
 
             <a href="./components/Cadastro.tsx" className="d-block text-center my-4 text-muted">Não possui conta? Cadastre-se</a>
 
@@ -57,3 +102,4 @@ function App() {
 }
 
 export default App;
+
