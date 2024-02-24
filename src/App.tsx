@@ -46,8 +46,7 @@ function App() {
             <i className="material-icons mr-3">account_circle</i> Continuar com Google
           </a>
 
-
-            <a href="cadastro.html" className="d-block text-center my-4 text-muted">Não possui conta? Cadastre-se</a>
+            <a href="./components/Cadastro.tsx" className="d-block text-center my-4 text-muted">Não possui conta? Cadastre-se</a>
 
           </div>
 
