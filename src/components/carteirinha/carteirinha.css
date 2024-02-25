@@ -1,0 +1,31 @@
+
+body {
+    margin: 0;
+    background-color: #9CE0DB; 
+  }
+  
+  .transparent-input {
+    background-color: transparent;
+    border: 1px solid black; /* Adicione uma borda para melhor visualização */
+  }
+  
+  /* Certifique-se de que a div que envolve o conteúdo também não tenha margens ou preenchimentos extras */
+  .background-container {
+    background-color: #9CE0DB; /* ou qualquer outra cor que você desejar */
+    width: 100%;
+    height: 100vh; /* Isso faz com que a div ocupe toda a altura da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Adicione esta linha para garantir que a div não tenha margens */
+    padding: 0; /* Adicione esta linha para garantir que a div não tenha preenchimentos */
+  }
+  
+  
+  #root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
