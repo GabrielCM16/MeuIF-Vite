@@ -41,7 +41,7 @@ function Cadastro() {
     if (matricula != "") {
       CadastroWithGoogle(matricula)
         .then((response) => {
-          //console.log("Login com Google realizado com sucesso:", response);
+          console.log("Login com Google realizado com sucesso:", response);
           setLoading(false);
         })
         .catch((error) => {

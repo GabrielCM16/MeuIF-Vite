@@ -4,7 +4,7 @@ import initialize from '../../firebase.ts';
 
 initialize();
 
-export async function CadastroWithGoogle(matricula: string): Promise<{ token: string, user: UserCredential['user'] }> {
+export async function CadastroWithGoogle(matricula: string): Promise<{ token: string, user: UserCredential['user'] } | null> {
     const auth = getAuth();
 
     try {
@@ -32,10 +32,11 @@ export async function CadastroWithGoogle(matricula: string): Promise<{ token: st
                         });
                 });
             } else {
-                alert("Conta já cadastrada")
+                alert("Conta já cadastrada");
+                return null; // Adicionando retorno para conta já cadastrada
             }
         } else {
-            alert("Matrícula não encontrada")
+            alert("Matrícula não encontrada");
             throw new Error("Matrícula não encontrada");
         }
     } catch (error) {
@@ -43,6 +44,7 @@ export async function CadastroWithGoogle(matricula: string): Promise<{ token: st
         throw error;
     }
 }
+
 
 async function setID(matricula: string, novoEmail: string, newidUser: string) {
     try {

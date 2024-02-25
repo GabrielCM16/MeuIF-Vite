@@ -1,8 +1,8 @@
 import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
-import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import initialize from '../../firebase.ts'
 
-const app = initialize();
+initialize();
 
 export async function login(email: string, password: string, matricula: string): Promise<UserCredential | { error: string }> {
   const auth = getAuth();
@@ -16,7 +16,7 @@ export async function login(email: string, password: string, matricula: string):
       return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential: UserCredential) => {
-            const user = userCredential.user;
+            //const user = userCredential.user;
             //console.log(user);
             resolve(userCredential); // Resolve a promise com o objeto do usuário após o login bem-sucedido
           })
