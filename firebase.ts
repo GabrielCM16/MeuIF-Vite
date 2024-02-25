@@ -1,4 +1,4 @@
-import { initializeApp, FirebaseOptions } from "firebase/app";
+import { initializeApp, FirebaseOptions, FirebaseApp  } from "firebase/app";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCG_UJeiEYlK8iaLUCE1eLcpuz-vNT-I0E",
@@ -10,6 +10,11 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: "G-T5FK1MCC4B"
 };
 
-export default function initialize(): void {
-  initializeApp(firebaseConfig);
+let app: FirebaseApp;
+
+export default function initialize(): FirebaseApp {
+  if (!app) {
+    app = initializeApp(firebaseConfig);
+  }
+  return app;
 }

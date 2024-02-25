@@ -10,37 +10,55 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
+  const [matricula, setMatricula] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Estado para controlar o carregamento
 
   const handleLogin = () => {
     setLoading(true); // Define o estado de carregamento como verdadeiro ao iniciar o processo de login
-    login(email, password)
-      .then(() => {
-        // Lógica após o login ser bem-sucedido
-        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
-      })
-      .catch((error) => {
-        // Lógica para lidar com erros de login
-        alert(error);
-        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
-      })
-      .finally(() => {
-        setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
-      });
+    if (matricula != "" && email != "" && password != "") {
+      login(email, password, matricula)
+        .then(() => {
+          // Lógica após o login ser bem-sucedido
+          setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+        })
+        .catch((error) => {
+          // Lógica para lidar com erros de login
+          if (typeof error === 'string') {
+            alert(error); // Se o erro for uma string, exibe o erro no alerta
+          } else if (typeof error === 'object' && error.error) {
+            alert(error.error); // Se o erro for um objeto com uma propriedade 'error', exibe o valor dessa propriedade no alerta
+          } else {
+            alert(error); // Se o tipo de erro não puder ser determinado, exibe uma mensagem genérica
+          }
+          setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+        })
+        .finally(() => {
+          setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+        });
+    } else {
+      alert("Insira todos os dados");
+      setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
+    }
+
   };
 
   const handleLoginWithGoogle = () => {
-    loginWithGoogle()
-      .then((result) => {
-        // Lógica após o login bem-sucedido com o Google
-        console.log('Login bem-sucedido com o Google:', result);
-      })
-      .catch((error) => {
-        // Lógica para lidar com erros de login com o Google
-        console.error('Erro ao fazer login com o Google:', error);
-      });
+    if (matricula != "") {
+      loginWithGoogle(matricula)
+        .then((result) => {
+          // Lógica após o login bem-sucedido com o Google
+          console.log('Login bem-sucedido com o Google:', result);
+        })
+        .catch((error) => {
+          // Lógica para lidar com erros de login com o Google
+          console.error('Erro ao fazer login com o Google:', error);
+        });
+    } else {
+      alert("Insira uma matrícula");
+    }
+
   };
 
 
@@ -49,12 +67,18 @@ function App() {
     <div className="background-container">
       <div className="mx-5 p-0 px-0 rounded-2 col-sm-12 col-md-6">
         <div className="mb-4">
-        <img id="gif" src={imagemGIF} alt="GIF" className="bg-gif" style={{ width: '50%', height: 'auto' }} />
+          <img id="gif" src={imagemGIF} alt="GIF" className="bg-gif" style={{ width: '50%', height: 'auto' }} />
           <h3>Entrar</h3>
           <p className="mb-4 text-dark">Realize o login para desfrutar dos recursos do MeuIF.</p>
         </div>
 
         <form action="#" method="post">
+
+          <div className="form-group first">
+            <label htmlFor="username">Matrícula</label>
+            <input type="text" className="form-control transparent-input" placeholder="1234567890" id="matricula" value={matricula} onChange={(e) => setMatricula(e.target.value)} />
+            <div id="avisoEmail" style={{ display: 'none', color: 'red' }}>matrícula inválida</div>
+          </div>
 
           <div className="form-group first">
             <label htmlFor="username">Email</label>
@@ -86,10 +110,9 @@ function App() {
 
           <div className="social-login">
 
-          <a href="#" className="google btn d-flex justify-content-center align-items-center" onClick={handleLoginWithGoogle}>
-            <img src={logoGoogle} alt="Google Icon" className="mr-3" /> Continuar com Google
-          </a>
-
+            <a href="#" className="google btn d-flex justify-content-center align-items-center" onClick={handleLoginWithGoogle}>
+              <img src={logoGoogle} alt="Google Icon" className="mr-3" /> Continuar com Google
+            </a>
 
             <a href="./components/Cadastro.tsx" className="d-block text-center my-4 text-muted">Não possui conta? Cadastre-se</a>
 
