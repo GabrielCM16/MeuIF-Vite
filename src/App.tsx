@@ -7,9 +7,17 @@ import { login } from './bd/login.ts';
 import { loginWithGoogle } from './bd/loginGoogle.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { getLoggedUserUID } from './bd/getLoggedUserUID.ts';
+import {salvarDadosLocalStorage, recuperarDadosLocalStorage} from './bd/localStorage.ts';
 
 
 function App() {
+  getLoggedUserUID().then(uid => {
+    console.log("login: " + uid);
+    console.log(recuperarDadosLocalStorage("matricula"));
+  });
+
+
   const [matricula, setMatricula] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +29,7 @@ function App() {
       login(email, password, matricula)
         .then(() => {
           // Lógica após o login ser bem-sucedido
+          salvarDadosLocalStorage("matricula", matricula);
           setLoading(false); // Define o estado de carregamento como falso ao finalizar o processo de login
         })
         .catch((error) => {
@@ -49,6 +58,7 @@ function App() {
       loginWithGoogle(matricula)
         .then((result) => {
           // Lógica após o login bem-sucedido com o Google
+          salvarDadosLocalStorage("matricula", matricula);
           console.log('Login bem-sucedido com o Google:', result);
         })
         .catch((error) => {
