@@ -52,7 +52,7 @@ function Carteirinha() {
             try {
                 const matriculaLocal = recuperarDadosLocalStorage("matricula");
                 if (matriculaLocal != null) {
-                    const dados = await getDados(matricula);
+                    const dados = await getDados(matriculaLocal);
                     salvarDadosLocalStorage("nome", dados.nome);
                     salvarDadosLocalStorage("turma", dados.turma);
                     setTurma(dados.turma);
