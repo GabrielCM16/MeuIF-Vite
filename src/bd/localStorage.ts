@@ -14,6 +14,6 @@ export function recuperarDadosLocalStorage(chave: string): string | null {
 //}
 
 // Limpar todos os dados do localStorage
-//function limparLocalStorage(): void {
-//    localStorage.clear();
-//}
+export function limparLocalStorage(): void {
+    localStorage.clear();
+}
