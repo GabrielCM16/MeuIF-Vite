@@ -11,6 +11,8 @@ import { getLoggedUserUID } from './bd/getLoggedUserUID.ts';
 import {salvarDadosLocalStorage, recuperarDadosLocalStorage} from './bd/localStorage.ts';
 
 
+
+
 function App() {
   getLoggedUserUID().then(uid => {
     console.log("login: " + uid);

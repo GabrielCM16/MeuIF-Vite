@@ -5,10 +5,10 @@ import './index.css'
 //import Cadastro from './components/Cadastro.tsx'
 //import Carteirinha from './components/carteirinha/carteirinha.tsx'
 
-//<Cadastro/>
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-   <App/>
+    <App />
   </React.StrictMode>,
 )
