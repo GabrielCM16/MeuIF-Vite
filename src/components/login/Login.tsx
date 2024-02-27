@@ -8,7 +8,7 @@ import { loginWithGoogle } from './../../bd/loginGoogle.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { getLoggedUserUID } from './../../bd/getLoggedUserUID.ts';
-import {salvarDadosLocalStorage, recuperarDadosLocalStorage} from './../../bd/localStorage.ts';
+import {recuperarDadosLocalStorage} from './../../bd/localStorage.ts';
 
 
 function Login() {
@@ -60,6 +60,7 @@ function Login() {
       loginWithGoogle(matricula)
         .then((result:any) => {
           // Lógica após o login bem-sucedido com o Google
+          console.log(result);
         })
         .catch((error:any) => {
           // Lógica para lidar com erros de login com o Google
