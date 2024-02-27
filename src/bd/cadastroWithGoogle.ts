@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup, AuthError, UserCredential } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import initialize from '../../firebase.ts';
+import {salvarDadosLocalStorage} from './../bd/localStorage.ts';
 
 initialize();
 
@@ -57,6 +58,8 @@ async function setID(matricula: string, novoEmail: string, newidUser: string) {
         // Atualize o campo "email" no documento
         await setDoc(documentRef, { email: novoEmail }, { merge: true });
         await setDoc(documentRef, { idUser: newidUser }, { merge: true });
+        salvarDadosLocalStorage("matricula", matricula);
+        window.location.href = "/carterinha";
 
         //console.log("Matrícula definida com sucesso:", matricula);
     } catch (error) {
