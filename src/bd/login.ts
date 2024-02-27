@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import initialize from '../../firebase.ts'
+import {salvarDadosLocalStorage} from './../bd/localStorage.ts';
 
 initialize();
 
@@ -19,6 +20,8 @@ export async function login(email: string, password: string, matricula: string):
             //const user = userCredential.user;
             //console.log(user);
             resolve(userCredential); // Resolve a promise com o objeto do usuário após o login bem-sucedido
+            salvarDadosLocalStorage("matricula", matricula);
+            window.location.href = "/carterinha";
           })
           .catch((error: any) => {
             reject(error); // Rejeita a promise com o erro em caso de falha no login

@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup, AuthError, UserCredential } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import initialize from '../../firebase.ts';
+import {salvarDadosLocalStorage} from './../bd/localStorage.ts';
 
 initialize();
 
@@ -25,6 +26,8 @@ export async function loginWithGoogle(matricula: string): Promise<{ token: strin
             //console.log("mail " + user.email);
             if (user.email == userData.email) {
               resolve({ token, user });
+              salvarDadosLocalStorage("matricula", matricula);
+              window.location.href = "/carterinha";
             } else {
               alert("O e-mail fornecido não corresponde ao e-mail associado à matrícula.");
               throw new Error("O e-mail fornecido não corresponde ao e-mail associado à matrícula.");
